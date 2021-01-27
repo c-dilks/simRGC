@@ -1,0 +1,3 @@
+[submodule "deps/clasdis"]
+	path = deps/clasdis
+	url = https://github.com/JeffersonLab/clasdis.git
