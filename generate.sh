@@ -5,19 +5,56 @@ if [ -z "$SIMRGC" ]; then
   echo "ERROR: you must source env.sh first"; exit
 fi
 
+# ARGUMENTS
+idx=0 # index, for organizing clasdis output
+nev=10000 # total number of events to generate
+if [ $# -ge 1 ]; then idx=$1; fi
+if [ $# -ge 2 ]; then nev=$2; fi
+
+
+# determine how many events on proton and neutron targets,
+# given fixed total number of events
+echo "calculating number of events to generate per nucleon..."
+root -b -q calculateNev.C'('$nev')' > tempo
+nev_p=$(grep 'on proton' tempo | awk '{print $2}')
+nev_n=$(grep 'on neutron' tempo | awk '{print $2}')
+echo "total number of events to generate: $nev"
+echo "   - number on proton target:  $nev_p"
+echo "   - number on neutron target: $nev_n"
+rm tempo
+
+# clasdis binary
 CLASDIS=${SIMRGC}/deps/clasdis/clasdis
 
-idx=0
-if [ $# -ge 1 ]; then idx=$1; fi
+# nucleon loop
+for nuc in proton neutron; do
 
-gendir="outgen/gen.${idx}"
-mkdir -p $gendir
-rm -r $gendir
-mkdir -p $gendir
-pushd $gendir
+  # create directory for lund files
+  gendir="outgen/gen.${idx}.${nuc}"
+  mkdir -p $gendir
+  rm -r $gendir
+  mkdir -p $gendir
+  pushd $gendir
+  mkdir eventfiles
 
-$CLASDIS \
---trig 20000 \
---nmax 10000
+  # configure clasdis
+  [[ "$nuc" == "proton" ]] && ngen=$nev_p || ngen=$nev_n
+  PARAMS=(
+    --trig $ngen   # number of events to generate
+    --nmax 10000   # number of events per lund file
+    --targ $nuc    # target species
+    --zwidth 5     # target depth [cm]
+    --trad 13      # target radius [cm]
+    --raster 5     # target raster diameter [cm]
+    --zpos 0       # target position [cm]
+    --beam 10.6    # beam energy [GeV]
+    --z 0.15       # minumum z = Epi/nu
+  )
 
-popd
+  # generate events
+  echo "GENERATING $ngen EVENTS on $nuc target..."
+  $CLASDIS ${PARAMS[@]} > log.txt
+  popd
+
+done
+echo "done!"
