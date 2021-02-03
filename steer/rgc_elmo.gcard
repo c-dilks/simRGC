@@ -89,9 +89,9 @@
 	 or the many tracks will slow down the simulation a lot
 	 For background studies use field in fast mode:
 	 -->
-	<option name="LUMI_EVENT"     value="0, 248.5*ns, 2*ns" />
+	<!-- (defined above) <option name="LUMI_EVENT"     value="0, 248.5*ns, 4*ns" /> -->
 	<option name="LUMI_P"         value="e-, 10.6*GeV, 0*deg, 0*deg" />
-	<option name="LUMI_V"         value="(1.0, 0.0, -13)cm" />
+	<option name="LUMI_V"         value="(0.0, 0.0, -13)cm" />
 	<option name="LUMI_SPREAD_V"  value="(0.03, 0.03)cm" />
 	
 	<!-- production threshold for passive volumes -->

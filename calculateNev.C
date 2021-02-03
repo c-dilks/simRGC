@@ -1,4 +1,5 @@
-// determine how many events to generate, for each nucleon
+// determine how many events to generate, for each nucleon,
+// based on requested total number of events `Ntot`
 
 void calculateNev(Long64_t Ntot=1970000) {
 

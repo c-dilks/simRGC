@@ -1,2 +1,5 @@
 .*.sw*
 .sw*
+jobscript/*.slurm
+farmout
+silviaCode

@@ -26,11 +26,17 @@ rm tempo
 # clasdis binary
 CLASDIS=${SIMRGC}/deps/clasdis/clasdis
 
+# output directory
+outdir="${SIMRGC}/outgen/clasdis.${idx}"
+mkdir -p $outdir
+rm -r $outdir
+mkdir -p $outdir
+
 # nucleon loop
 for nuc in proton neutron; do
 
   # create directory for lund files
-  gendir="outgen/gen.${idx}.${nuc}"
+  gendir="${SIMRGC}/outgen/tmp/gen.${idx}.${nuc}"
   mkdir -p $gendir
   rm -r $gendir
   mkdir -p $gendir
@@ -53,8 +59,13 @@ for nuc in proton neutron; do
 
   # generate events
   echo "GENERATING $ngen EVENTS on $nuc target..."
-  $CLASDIS ${PARAMS[@]} > log.txt
+  $CLASDIS ${PARAMS[@]} > ${outdir}/log.${nuc}.txt
+
+  # move lund files to final output directory
+  sleep 1
+  mv eventfiles/*.dat ${outdir}/
   popd
 
 done
+echo "LUND files and LOGS written to $outdir"
 echo "done!"
