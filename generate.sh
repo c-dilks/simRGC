@@ -6,10 +6,9 @@ if [ -z "$SIMRGC" ]; then
 fi
 
 # ARGUMENTS
-idx=0 # index, for organizing clasdis output
-nev=10000 # total number of events to generate
-if [ $# -ge 1 ]; then idx=$1; fi
-if [ $# -ge 2 ]; then nev=$2; fi
+if [ $# -ne 2 ]; then echo "USAGE: $0 [idx] [numEvents]"; exit; fi
+idx=$1 # index, for organizing clasdis output
+nev=$2 # total number of events to generate
 
 
 # determine how many events on proton and neutron targets,

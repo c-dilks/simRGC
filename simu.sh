@@ -55,4 +55,9 @@ evio2hipo -r 11 -t -1 -s -1 -o $simfile $simfileEV
 # reconstruction ##################
 banner "RECONSTRUCTION"
 recon-util -c 2 -i $simfile -o $recfile -y $yamlfile
+
+# cleanup #########################
+banner "CLEANUP"
+rm -v $simfile $simfileEV
+
 banner "DONE"
