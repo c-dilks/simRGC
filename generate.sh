@@ -49,9 +49,9 @@ for nuc in proton neutron; do
     --nmax 10000   # number of events per lund file
     --targ $nuc    # target species
     --zwidth 5     # target depth [cm]
-    --trad 13      # target radius [cm]
-    --raster 5     # target raster diameter [cm]
-    --zpos 0       # target position [cm]
+    --trad 1       # target radius [cm]
+    --raster 1.5   # target raster diameter [cm]
+    --zpos -3      # target position [cm]
     --beam 10.6    # beam energy [GeV]
     --z 0.15       # minumum z = Epi/nu
   )

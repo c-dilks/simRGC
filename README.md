@@ -6,6 +6,9 @@ simulations for RGC SIDIS
 * link `out...` directories to `/volatile` subdirectories
 * compile `clasdis` in `src/clasdis` (`cd` there, then run `make`)
 * set env vars with `source env.sh` (use `bash` or `zsh`)
+  * if you want to connect `dispin` analysis code, make sure `$DISPIN_SIM` in `env.sh`
+    points to the correct directory; if you do not want to use `dispin`, comment out
+    the lines in `env.sh` so that `$DISPIN_SIM` does not get set
 
 ## usage
 - generate events with `clasdis`:

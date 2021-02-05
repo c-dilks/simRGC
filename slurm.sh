@@ -14,6 +14,9 @@ simdir="${SIMRGC}/outsim/${idx}"
 recdir="${SIMRGC}/outrec/${idx}"
 mkdir -p $simdir; rm -r $simdir; mkdir -p $simdir
 mkdir -p $recdir; rm -r $recdir; mkdir -p $recdir
+if [ -n "$DISPIN_SIM" ]; then
+  rm -v ${DISPIN_SIM}/outroot/*.root
+fi
 
 
 # loop through lund files and build list of jobs

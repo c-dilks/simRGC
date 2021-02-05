@@ -47,17 +47,35 @@ gemc $gcard \
 -PRINT_EVENT=10 \
 -INPUT_GEN_FILE="LUND, $lundfile" \
 -OUTPUT="evio, $simfileEV"
+sleep 3
+rm -v $lundfile
+
+
+# evio -> hipo ####################
 banner "evio2hipo"
 evio2hipo -r 11 -t -1 -s -1 -o $simfile $simfileEV
-# rm $simfileEV
+sleep 3
+rm -v $simfileEV
 
 
 # reconstruction ##################
 banner "RECONSTRUCTION"
 recon-util -c 2 -i $simfile -o $recfile -y $yamlfile
+sleep 3
+rm -v $simfile
 
-# cleanup #########################
-banner "CLEANUP"
-rm -v $simfile $simfileEV
+
+# dihadron analysis ###############
+banner "ANALYSIS"
+if [ -n "$DISPIN_SIM" ]; then
+  pushd $DISPIN_SIM
+  runDiskim.sh $recfile mcrec skim
+  popd
+  sleep 3
+  rm -v $recfile
+else
+  echo "analysis step disabled"
+fi
+
 
 banner "DONE"
