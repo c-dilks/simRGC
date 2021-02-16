@@ -72,7 +72,7 @@ if [ -n "$DISPIN_SIM" ]; then
   runDiskim.sh $recfile mcrec skim
   popd
   sleep 3
-  rm -v $recfile
+  #rm -v $recfile
 else
   echo "analysis step disabled"
 fi

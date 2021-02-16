@@ -50,7 +50,7 @@ for nuc in proton neutron; do
     --targ $nuc    # target species
     --zwidth 5     # target depth [cm]
     --trad 1       # target radius [cm]
-    --raster 1.5   # target raster diameter [cm]
+    --raster 0.5   # target raster diameter [cm]
     --zpos -3      # target position [cm]
     --beam 10.6    # beam energy [GeV]
     --z 0.15       # minumum z = Epi/nu
